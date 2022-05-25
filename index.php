@@ -27,7 +27,7 @@
             <div class="card">
             <img src="./assets/imgs/product1.jpg" class="img-fluid card-img-top" alt="hero">
                 <div class="card-body">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, vero?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. tororoo Voluptatum, vero?
                     <div class="d-flex justify-content-between fw-bold mt-3">Price: <span class="price text-danger">$2.99</span></div>
                 </div>
                 <div class="card-footer d-flex justify-content-between">
