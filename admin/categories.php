@@ -52,11 +52,16 @@ $sql = $conn->query("SELECT * FROM product_categories");
                                             <?php $num = 1; ?>
                                             <?php while($row = mysqli_fetch_assoc($sql)){ ?>
                                                 <tr>
+                                                    <?php $edit_id = "update-". $row['id']; ?>
                                                     <td><?php echo $num++ ?></td>
-                                                    <td class="<?php echo "edits-". $row['id']; ?>"><?php echo $row['category_name'] ?></td>
-                                                    <td class="<?php echo "edits-". $row['id']; ?>"><?php echo $row['category_slug'] ?></td>
+                                                    <td id="name-<?php echo $row['id'] ?>" class="<?php echo "edits-". $row['id']; ?>"><?php echo $row['category_name'] ?></td>
+                                                    <td id="slug-<?php echo $row['id'] ?>" class="<?php echo "edits-". $row['id']; ?>"><?php echo $row['category_slug'] ?></td>
                                                     <td><?php echo $row['created_at'] ?></td>
-                                                    <td><button class="edit btn btn-primary" id="<?php echo $row['id'] ?>"><i class="fa fa-edit"></i> Edit</button><button id="<?php echo $row['id'] ?>" data-toggle="modal" data-target="#deleteModal" class="remove btn btn-danger mx-3"><i class="fas fa-trash-alt"></i> Remove</button></td>
+                                                    <td><button class="edit btn btn-primary" id="<?php echo $row['id'] ?>"><i class="fa fa-edit"></i> Edit</button>
+
+                                                    <a class="update btn btn-primary d-none" id="<?php echo $edit_id ?>"><i class="fa fa-edit"></i> Update</a>
+
+                                                    <button id="<?php echo $row['id'] ?>" data-toggle="modal" data-target="#deleteModal" class="remove btn btn-danger mx-3"><i class="fas fa-trash-alt"></i> Remove</button></td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -130,34 +135,55 @@ $sql = $conn->query("SELECT * FROM product_categories");
     }
 
     // edit
-    let edit = document.querySelectorAll('.edit');
-    for(let i = 0; i < edit.length; i++){
-        edit[i].addEventListener('click', function(){
-            id = this.id;
-            let selector = '.edits-' + id;
-            let editable = document.querySelectorAll(selector);
-            for(let i = 0; i < editable.length; i++){
-                editable[i].setAttribute('contenteditable', 'true');
-            }
-            editable[0].focus();
-            this.innerHTML = 'Update';
-            this.parentElement.innerHTML += '<button class="cancel btn btn-secondary">Cancel</button>';
-            // cancel
-            let cancel = document.querySelectorAll('.cancel');
-            for(let i = 0; i < cancel.length; i++){
-                cancel[i].addEventListener('click', function(){
-                    let sibling = this.parentElement.previousSibling.previousSibling.previousSibling.previousSibling;
-                    sibling_id = sibling.classList[0];
-                    let sbls = document.querySelectorAll('.'+sibling_id);
-                    for(let i = 0; i < sbls.length; i++){
-                        sbls[i].setAttribute('contenteditable', 'false');
-                    }
-                    cancel[i].remove();
-                    update_id = sibling_id.split('-')[1];
-                    document.getElementById(update_id).innerHTML = '<i class="fa fa-edit"></i> Edit';
-                });
-            }
-        });
+    editData();
+    function editData(){
+        let edit = document.querySelectorAll('.edit');
+        for(let i = 0; i < edit.length; i++){
+            edit[i].addEventListener('click', function(){
+                id = this.id;
+                let selector = '.edits-' + id;
+                let editable = document.querySelectorAll(selector);
+                for(let i = 0; i < editable.length; i++){
+                    editable[i].setAttribute('contenteditable', 'true');
+                }
+                editable[0].focus();
+                let updateId = 'update-'+id;
+                document.getElementById(updateId).classList.remove('d-none');
+                this.classList.add('d-none');
+                this.parentElement.innerHTML += '<button class="cancel btn btn-secondary">Cancel</button>';
+                // cancel
+                let cancel = document.querySelectorAll('.cancel');
+                for(let i = 0; i < cancel.length; i++){
+                    cancel[i].addEventListener('click', function(){
+                        let sibling = this.parentElement.previousSibling.previousSibling.previousSibling.previousSibling;
+                        sibling_id = sibling.classList[0];
+                        let sbls = document.querySelectorAll('.'+sibling_id);
+                        for(let i = 0; i < sbls.length; i++){
+                            sbls[i].setAttribute('contenteditable', 'false');
+                        }
+                        cancel[i].remove();
+                        update_id = sibling_id.split('-')[1];
+                        document.getElementById(update_id).classList.remove('d-none');
+                        document.getElementById(updateId).classList.add('d-none');
+                        editData();
+                    });
+                    updateData()
+                }
+            });
+        }
+    }
+    // update
+    function updateData(){
+        let update = document.querySelectorAll('.update');
+        for(let i = 0; i < update.length; i++){
+            update[i].addEventListener('click', function(){
+                let id = this.id.split('-')[1];
+                let name = document.getElementById('name-'+id).innerHTML;
+                let slug = document.getElementById('slug-'+id).innerHTML;
+
+                this.setAttribute('href', `./database/update_category.php?name=${name}&slug=${slug}&id=${id}`);
+            });
+        }
     }
 </script>
 <?php include './includes/footer.php' ?>
