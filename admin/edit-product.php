@@ -1,14 +1,17 @@
 <?php include './includes/header.php'; 
     include './database/db_connect.php';
-    include './database/insert_product.php';
     $result = $conn->query("SELECT id, category_name FROM product_categories") or die($conn->error);
+    $edit_id = $_GET['edit_id'];
+
+    $sql = $conn->query("SELECT * FROM products WHERE id = $edit_id");
+    $product = $sql->fetch_assoc();
 ?>
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">All Products</h1>
+            <h1 class="h3 mb-0 text-gray-800">Update Product</h1>
         </div>
 
         <?php if(isset($success['insert'])) { ?>
@@ -37,24 +40,18 @@
                     <!-- Card Header - Dropdown -->
                     <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Products</h6>
-                        <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                        </div>
+                        <h6 class="m-0 font-weight-bold text-primary">Edit Product</h6>
                     </div>
                     <!-- Card Body -->
                     <div class="card-body p-5">
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="title">Product Title</label>
-                                <input type="text" id="title" name="title" value="<?php echo $title ?? '' ?>" class="form-control" placeholder="Product Title">
+                                <input type="text" id="title" name="title" value="<?php echo $product['product_title'] ?>" class="form-control" placeholder="Product Title">
                             </div>
                             <div class="form-group">
                                 <label for="category">Product Category</label>
-                                <select name="category" class="form-control">
+                                <select name="category" id="category" class="form-control">
                                     <?php while($row = $result->fetch_assoc()){ ?>
                                         <option value="<?php echo $row['id'] ?>"><?php echo $row['category_name'] ?></option>
                                     <?php } ?>
@@ -62,11 +59,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="short_desc">Product Short Desc</label>
-                                <input type="text" id="short_desc" name="short_desc" value="<?php echo $short_desc ?? '' ?>" class="form-control" placeholder="Product short_desc">
+                                <input type="text" id="short_desc" name="short_desc" value="<?php echo $product['product_short_desc'] ?>" class="form-control" placeholder="Product short_desc">
                             </div>
                             <div class="form-group">
                                 <label for="long_desc">Product Long Desc</label>
-                                <textarea name="long_desc" id="long_desc" cols="30" rows="10" class="form-control" placeholder="Enter Log Desc"><?php echo $long_desc ?? '' ?></textarea>
+                                <textarea name="long_desc" id="long_desc" cols="30" rows="10" class="form-control" placeholder="Enter Log Desc"><?php echo $product['product_long_desc'] ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="thumb">Product Thumbnail</label>
@@ -78,15 +75,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="price">Product Price</label>
-                                <input type="number" id="price" name="price" value="<?php echo $price ?? '' ?>" class="form-control" placeholder="Product price">
+                                <input type="number" id="price" name="price" value="<?php echo $product['product_price'] ?>" class="form-control" placeholder="Product price">
                             </div>
                             <div class="form-group">
                                 <label for="qty">Product Quantity</label>
-                                <input type="number" id="qty" name="qty" value="<?php echo $qty ?? '' ?>" class="form-control" placeholder="Product qty">
+                                <input type="number" id="qty" name="qty" value="<?php echo $product['product_quantity'] ?>" class="form-control" placeholder="Product qty">
                             </div>
                             <div class="form-group">
                                 <label for="discount">Product Discount (0 = no discount | in %)</label>
-                                <input type="number" id="discount" name="discount" value="<?php echo $discount ?? '' ?>" class="form-control" placeholder="Product discount">
+                                <input type="number" id="discount" name="discount" value="<?php echo $product['discount'] ?>" class="form-control" placeholder="Product discount">
                             </div>
                             <input type="submit" name="submit" class="btn btn-primary" value="Submit">
                         </form>

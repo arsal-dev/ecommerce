@@ -1,5 +1,7 @@
 <?php
 
+    include './database/db_connect.php';
+
     if(isset($_POST['submit'])){
         $title = $_POST['title'];
         $category = $_POST['category'];
@@ -51,6 +53,40 @@
                     else {
                         $new_thmbnail = $random.'.'.$img_extention;
                         move_uploaded_file($thumbnail['tmp_name'], './uploads/'.$new_thmbnail);
+
+                        $imgs = count($images['name']);
+                        if($imgs != 3){
+                            $error['empty'] = "Images Must be 3";
+                        }
+                        else {
+                            $img_arr = [];
+                            for($i = 0; $i < $imgs; $i++){
+                                if($images['type'][$i] == 'image/jpg' ||
+                                   $images['type'][$i] == 'image/jpeg' ||
+                                   $images['type'][$i] == 'image/png'
+                                ){
+                                    if($images['size'][$i] > 10000000){
+                                        $error['empty'] = "Image can only be less then 10 MB";
+                                    }
+                                    else {
+                                        $img_extention = explode('/', $images['type'][$i])[1];
+                                        $new_image_name = rand() . '.' . $img_extention;
+                                        
+                                        array_push($img_arr, $new_image_name);
+
+                                        move_uploaded_file($images['tmp_name'][$i], './uploads/'.$new_image_name);
+    
+                                    }
+                                }
+                                else {
+                                    $error['empty'] = "Please select valid images";
+                                }
+                            }
+                        }
+                        $imagesComma = implode(',',$img_arr);
+                        $sql = $conn->query("INSERT INTO `products`(`product_category`, `product_title`, `product_short_desc`, `product_long_desc`, `product_images`, `product_price`, `product_quantity`, `discount`, `product_thumbnail`) VALUES ('$category','$title','$short_desc','$long_desc','$imagesComma','$price','$qty','$discount','$new_thmbnail')");
+
+                        $success['insert'] = 'Product Was Inserted Successfully';
                     }
                 }
                 else {
