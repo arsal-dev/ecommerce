@@ -1,5 +1,6 @@
 <?php include './includes/header.php'; 
     include './database/db_connect.php';
+    include './database/edit_product.php';
     $result = $conn->query("SELECT id, category_name FROM product_categories") or die($conn->error);
     $edit_id = $_GET['edit_id'];
 
@@ -45,6 +46,7 @@
                     <!-- Card Body -->
                     <div class="card-body p-5">
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data">
+                            <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
                             <div class="form-group">
                                 <label for="title">Product Title</label>
                                 <input type="text" id="title" name="title" value="<?php echo $product['product_title'] ?>" class="form-control" placeholder="Product Title">
@@ -53,7 +55,11 @@
                                 <label for="category">Product Category</label>
                                 <select name="category" id="category" class="form-control">
                                     <?php while($row = $result->fetch_assoc()){ ?>
-                                        <option value="<?php echo $row['id'] ?>"><?php echo $row['category_name'] ?></option>
+                                        <?php if($row['id'] == $product['product_category']){ ?>
+                                            <option selected value="<?php echo $row['id'] ?>"><?php echo $row['category_name'] ?></option>
+                                        <?php } else { ?>
+                                            <option value="<?php echo $row['id'] ?>"><?php echo $row['category_name'] ?></option>
+                                        <?php } ?>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -64,14 +70,6 @@
                             <div class="form-group">
                                 <label for="long_desc">Product Long Desc</label>
                                 <textarea name="long_desc" id="long_desc" cols="30" rows="10" class="form-control" placeholder="Enter Log Desc"><?php echo $product['product_long_desc'] ?></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="thumb">Product Thumbnail</label>
-                                <input type="file" id="thumb" name="thumb" class="form-control" accept="image/png, image/jpeg" placeholder="Product thumb">
-                            </div>
-                            <div class="form-group">
-                                <label for="images">Product Images (Must be 3)</label>
-                                <input type="file" id="images" name="images[]" class="form-control" multiple accept="image/png, image/jpeg" placeholder="Product images">
                             </div>
                             <div class="form-group">
                                 <label for="price">Product Price</label>

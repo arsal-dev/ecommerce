@@ -66,7 +66,7 @@ $sql = $conn->query('SELECT products.*, product_categories.category_name FROM pr
                                         <td><?php echo $row['product_price'] ?></td>
                                         <td><?php echo $row['product_quantity'] ?></td>
                                         <td><?php echo $row['discount'] ?></td>
-                                        <td><a href="./edit-product.php?edit_id=<?php echo $row['id']?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a><a href="./database/delete_product.php?delete_id=<?php echo $row['id']?>&thumb=<?php echo $row['product_thumbnail'] ?>&images=<?php echo $row['product_images'] ?>" class="btn btn-danger mx-2"><i class="fa fa-trash-alt"></i> Delete</a></td>
+                                        <td><a href="./edit-product.php?edit_id=<?php echo $row['id']?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a><a href="./update-images.php?edit_id=<?php echo $row['id']?>" class="btn btn-primary mx-2"><i class="fa fa-edit"></i> Update Images</a><a href="./database/delete_product.php?delete_id=<?php echo $row['id']?>&thumb=<?php echo $row['product_thumbnail'] ?>&images=<?php echo $row['product_images'] ?>" class="btn btn-danger"><i class="fa fa-trash-alt"></i> Delete</a></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
