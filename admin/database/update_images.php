@@ -23,7 +23,7 @@
                     }
                     else {
                         $new_thmbnail = $random.'.'.$img_extention;
-                        unlink('../uploads/'.$prod_thumb);
+                        unlink('./uploads/'.$product_images['product_thumbnail']);
                         move_uploaded_file($thumb['tmp_name'], './uploads/'.$new_thmbnail);
                         
                         $sql = $conn->query("UPDATE `products` SET `product_thumbnail`='$new_thmbnail' WHERE id = $id");
