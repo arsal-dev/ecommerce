@@ -43,7 +43,7 @@
             else {
 
                 for($i = 0; $i < count($prd_imgs); $i++){
-                    unlink("../uploads/$prd_imgs[$i]");
+                    unlink("./uploads/$prd_imgs[$i]");
                 }
                 $img_arr = [];
                 for($i = 0; $i < $imgs; $i++){
