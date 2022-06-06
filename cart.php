@@ -1,71 +1,73 @@
 <?php include './includes/header.php' ?>
-<div class="jumbotron hero-bg">
-    <div class="row gx-5">
-        <div class="col-md-6">
-            <div class="p-3">
-                <img src="./assets/imgs/hero-image.png" class="img-fluid" alt="hero image">
-            </div>
+    <!-- ----------------cart items details---------------- -->
+    <div class="small-container cart-page">
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>subtotal</th>
+                <th>remove</th>
+            </tr>
+            <?php 
+                 if(isset($_COOKIE['cart_products'])){
+                    $cookieProducts = json_decode($_COOKIE['cart_products'], true);
+                    foreach($cookieProducts as $pro){ ?>
+                    <tr>
+                        <td>
+                            <div class="cart-info"><img src="./admin/uploads/<?php echo $pro['product_thumbnail'] ?>">
+                            <div>
+                                <p><?php echo $pro['product_title']; ?></p>
+                                <small>price: $<?php echo $pro['product_price'] ?></small>
+                                <br>
+                                <a href="">remove</a>
+                            </div>
+                            </div>
+                        </td>
+                        <td><input type="number" id="<?php echo $pro['id'] ?>" price="<?php echo $pro['product_price'] ?>" qty="<?php echo $pro['product_quantity'] ?>" class="user_quantity" value="1"></td>
+                        <td id="kuchbhi"><?php echo $pro['product_price'] ?></td>
+                        <td><a href="./database/remove_from_cart.php?id=<?php echo $pro['id']; ?>" style="border:1px solid #fd2e26; padding: 7px;
+                            background: none;">X</a></td>
+                    </tr>
+                <?php } } ?>
+        </table>
+        <div class="total-price">
+            <table>
+                <tr>
+                    <td>subtotal</td>
+                    <td id="subTotal">$135.50</td>
+                </tr>
+                <tr>
+                    <td>tax</td>
+                    <td>$35.50</td>
+                </tr>
+                <tr>
+                    <td>total</td>
+                    <td>$176</td>
+                </tr>
+            </table>
         </div>
-        <div class="col-md-6">
-            <div class="p-3 hero-second-column">
-                <h3>Cart</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, beatae!</p>
-                <button class="btn btn-info text-white">Check Cart!</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- cart -->
-<h3 class="text-center fw-bold mt-5">Cart Itmes</h3>
-<div class="mt-5">
-    <table class="table table-danger table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Product</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
-                <th scope="col">Total Price</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>product1</td>
-                <td><input type="number" class="form-control" max="10" min="1"></td>
-                <td>$20</td>
-                <td>$20</td>
-                <td><button class="btn btn-danger">Remove</button></td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>product2</td>
-                <td><input type="number" class="form-control" max="10" min="1"></td>
-                <td>$2.99</td>
-                <td>$2.99</td>
-                <td><button class="btn btn-danger">Remove</button></td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Product 3</td>
-                <td><input type="number" class="form-control" max="10" min="1"></td>
-                <td>$5000</td>
-                <td>$5000</td>
-                <td><button class="btn btn-danger">Remove</button></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<!-- check out -->
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Check Out</h5>
-    <hr>
-    <h6 class="card-subtitle mb-2 text-muted d-flex justify-content-between">Total Ammount: <span class="text-danger">$5121.99</span></h6>
-    <a href="#" class="card-link">Clear Cart</a>
-    <a href="#" class="card-link">Continue</a>
-  </div>
-</div>
-<?php include './includes/footer.php' 
-?>
+        <button class="btn">buy now</button>
+    </div>    
+    <script>
+        let subTotal = document.getElementById('subTotal');
+        let user_quantity = document.querySelectorAll('.user_quantity');
+        let subNum = 0;
+        for(let i = 0; i < user_quantity.length; i++){
+            user_quantity[i].addEventListener('change', function(){
+                let thisValue = parseInt(this.value);
+                let thisQty = parseInt(this.getAttribute('qty'));
+                if(thisValue > thisQty){
+                    this.value = this.getAttribute('qty');
+                }
+                let price = this.getAttribute('price');
+                this.parentElement.nextSibling.nextSibling.innerHTML = price * this.value;
+                let userQ = parseInt(user_quantity[i].parentElement.nextSibling.nextSibling.innerHTML);
+                subNum = subNum + userQ;
+                subTotal.innerHTML = subNum;
+            });
+            let userQ = parseInt(user_quantity[i].parentElement.nextSibling.nextSibling.innerHTML);
+            subNum = subNum + userQ;
+            subTotal.innerHTML = subNum;
+        }
+    </script>
+<?php include './includes/footer.php' ?>

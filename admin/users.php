@@ -1,5 +1,8 @@
 <?php include './includes/header.php' ?>
 <?php include './database/insert_user.php';
+if(!$role['userRead']){
+    echo "<script>location.replace('./index.php');</script>";
+}
 $users = $conn->query("SELECT users.id, users.username, users.role_id, users.created_at, roles.role_name FROM users LEFT JOIN roles ON users.role_id = roles.id");
 $roles = $conn->query("SELECT id, role_name FROM roles");
 ?>
@@ -56,8 +59,8 @@ $roles = $conn->query("SELECT id, role_name FROM roles");
                                                     <td><?php echo $row['username'] ?></td>
                                                     <td><?php echo $row['role_name'] ?></td>
                                                     <td><?php echo $row['created_at'] ?></td>
-                                                    <td><button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
-                                                    <button class="btn btn-danger"><i class="fa fa-trash-alt"></i> Delete</button></td>
+                                                    <td><a href="./edit-user.php?edit_id=<?php echo $row['id'] ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    <a href="./database/delete_user.php?delete_id=<?php echo $row['id'] ?>" class="btn btn-danger"><i class="fa fa-trash-alt"></i> Delete</a></td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>

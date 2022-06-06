@@ -1,8 +1,19 @@
 <?php
+    include './database/db_connect.php';
     session_start();
     if(!isset($_SESSION['username'])){
         header('Location: login.php');
     }
+    else {
+        $sess_user = $_SESSION['username'];
+        $sql = $conn->query("SELECT role_id FROM users WHERE username = '$sess_user'");
+        $role = $sql->fetch_assoc();
+        $role_id = $role['role_id'];
+        $sql = $conn->query("SELECT * FROM roles WHERE id = $role_id");
+        $role = $sql->fetch_assoc();
+    }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -147,14 +158,18 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="./users.php">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Users
-                                </a>
-                                <a class="dropdown-item" href="./roles.php">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Roles
-                                </a>
+                                <?php if($role['userRead']){ ?>
+                                    <a class="dropdown-item" href="./users.php">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Users
+                                    </a>
+                                <?php } ?>
+                                <?php if($role['roleRead']){ ?>
+                                    <a class="dropdown-item" href="./add-roles.php">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Roles
+                                    </a>
+                                <?php } ?>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

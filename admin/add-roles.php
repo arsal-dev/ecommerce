@@ -1,6 +1,9 @@
 <?php include './includes/header.php' ?>
 <?php
     include './database/db_connect.php';
+    if(!$role['roleRead']){
+        echo "<script>location.replace('./index.php');</script>";
+    }
     if(isset($_POST['submit'])){
         $roleName = $_POST['roleName'];
         $productRead = (isset($_POST['productRead'])) ? 1 : 0;
@@ -11,13 +14,21 @@
         $categoryAdd = (isset($_POST['categoryAdd'])) ? 1 : 0;
         $categoryUpdate = (isset($_POST['categoryUpdate'])) ? 1 : 0;
         $categoryDelete = (isset($_POST['categoryDelete'])) ? 1 : 0;
+        $userRead = (isset($_POST['userRead'])) ? 1 : 0;
+        $userAdd = (isset($_POST['userAdd'])) ? 1 : 0;
+        $userUpdate = (isset($_POST['userUpdate'])) ? 1 : 0;
+        $userDelete = (isset($_POST['userDelete'])) ? 1 : 0;
+        $roleRead = (isset($_POST['roleRead'])) ? 1 : 0;
+        $roleAdd = (isset($_POST['roleAdd'])) ? 1 : 0;
+        $roleUpdate = (isset($_POST['roleUpdate'])) ? 1 : 0;
+        $roleDelete = (isset($_POST['roleDelete'])) ? 1 : 0;
 
 
         if(empty($roleName)){
             $error['insert'] = 'Please Enter Role Name';
         }
-        else {
-            $sql = $conn->query("INSERT INTO `roles`(`role_name`, `productRead`, `productAdd`, `productUpdate`, `productDelete`, `categoryRead`, `categoryAdd`, `categoryUpdate`, `categoryDelete`) VALUES ('$roleName','$productRead','$productAdd','$productUpdate','$productDelete','$categoryRead','$categoryAdd','$categoryUpdate','$categoryDelete')");
+        else {;
+            $sql = $conn->query("INSERT INTO `roles`(`role_name`, `productRead`, `productAdd`, `productUpdate`, `productDelete`, `categoryRead`, `categoryAdd`, `categoryUpdate`, `categoryDelete`, `userRead`, `userAdd`, `userUpdate`, `userDelete`, `roleRead`, `roleAdd`, `roleUpdate`, `roleDelete`) VALUES ('$roleName','$productRead','$productAdd','$productUpdate','$productDelete','$categoryRead','$categoryAdd','$categoryUpdate','$categoryDelete','$userRead','$userAdd','$userUpdate','$userDelete','$roleRead','$roleAdd','$roleUpdate','$roleDelete')");
     
             (!$conn->error) ? $success['insert'] = 'Role Created Successfully' : $error['insert'] = $conn->error; 
         }
@@ -85,6 +96,20 @@
                                                 <td><input type="checkbox" class="form-control" name="categoryAdd" id="categoryAdd"></td>
                                                 <td><input type="checkbox" class="form-control" name="categoryUpdate" id="categoryUpdate"></td>
                                                 <td><input type="checkbox" class="form-control" name="categoryDelete" id="categoryDelete"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Users</td>
+                                                <td><input type="checkbox" class="form-control" name="userRead" id="userRead"></td>
+                                                <td><input type="checkbox" class="form-control" name="userAdd" id="userAdd"></td>
+                                                <td><input type="checkbox" class="form-control" name="userUpdate" id="userUpdate"></td>
+                                                <td><input type="checkbox" class="form-control" name="userDelete" id="userDelete"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Roles</td>
+                                                <td><input type="checkbox" class="form-control" name="roleRead" id="roleRead"></td>
+                                                <td><input type="checkbox" class="form-control" name="roleAdd" id="roleAdd"></td>
+                                                <td><input type="checkbox" class="form-control" name="roleUpdate" id="roleUpdate"></td>
+                                                <td><input type="checkbox" class="form-control" name="roleDelete" id="roleDelete"></td>
                                             </tr>
                                         </tbody>
                                     </table>

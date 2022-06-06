@@ -1,54 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <!-- custom css -->
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Zanana Website</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,500;0,600;0,700;1,300;1,500&display=swap"
+        rel="stylesheet">
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="https://azadchaiwala.pk/assets/css/fontawesome/css/all.min.css">
+    <title>ZYB Store</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #delBtn:hover {
+            background-color: #fd2e26 !important;
+            color: #fff;
+        }
+    </style>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Zanana</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Categories
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Cart</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">login</a>
-        </li>
-      </ul>
+<div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <a href="index.php"><img src="./images/logo.png" alt="Logo"></a>
+            </div>
+            <nav>
+                <ul id="links">
+                    <li><a href="index.php">home</a></li>
+                    <li><a href="products.php">products</a></li>
+                    <li><a href="#about">about</a></li>
+                    <li><a href="#contact">contact</a></li>
+                    <li><a href="account.php">account</a></li>
+                </ul>
+            </nav>
+            <a href="./cart.php"><img src="./images/cart.png" alt="cart"><sub class="cart-item-number" id="cart-item-number">0<sub></a>
+            <img src="./images/menu.png" alt="cart" class="menu-icon" onclick="myFunc()">
+        </div>
     </div>
-  </div>
-</nav>
-<div class="main container mb-5">
