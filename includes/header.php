@@ -35,7 +35,13 @@
                     <li><a href="account.php">account</a></li>
                 </ul>
             </nav>
-            <a href="./cart.php"><img src="./images/cart.png" alt="cart"><sub class="cart-item-number" id="cart-item-number">0<sub></a>
+            <?php 
+                $num = 0;
+                foreach(json_decode($_COOKIE['cart_products'], true) as $c){
+                    $num++;
+                }
+            ?>
+            <a href="./cart.php"><img src="./images/cart.png" alt="cart"><sub class="cart-item-number" id="cart-item-number"><?php echo $num ?? 0 ?><sub></a>
             <img src="./images/menu.png" alt="cart" class="menu-icon" onclick="myFunc()">
         </div>
     </div>

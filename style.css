@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 body {
     font-family: 'Poppins', sans-serif;
@@ -303,6 +303,10 @@ ul {
     text-align: center;
 }
 /* ------------All Products Page---------- */
+.error {
+    color: rgb(245, 41, 41);
+    font-size: 14px;
+}
 .row-2 {
     justify-content: space-between;
     margin: 100px auto 50px;
@@ -310,6 +314,11 @@ ul {
 select {
     border: 1px solid  #fd2e26;
     padding: 5px;
+}
+#gender {
+    border: 1px solid  #fd2e26;
+    padding: 5px;
+    width: 100% !important;
 }
 select:focus{
     outline: none;
@@ -449,7 +458,7 @@ th:last-child {
 .form-container {
     background: #fff;
     width: 300px;
-    height: 400px;
+    height: 550px;
     position: relative;
     text-align: center;
     padding: 20px 0;
@@ -472,12 +481,18 @@ th:last-child {
     max-width: 300px;
     padding: 0 20px;
     position: absolute;
-    top: 130px;
+    top: 70px;
     transition: transform 1s;
 }
 form input{
     width: 100%;
     height: 30px;
+    margin: 10px 0;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+}
+form textarea{
+    width: 100%;
     margin: 10px 0;
     padding: 0 10px;
     border: 1px solid #ccc;

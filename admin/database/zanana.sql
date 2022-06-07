@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2022 at 01:01 AM
+-- Generation Time: Jun 08, 2022 at 01:40 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -34,9 +34,18 @@ CREATE TABLE `customers` (
   `phone` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `gander` varchar(255) NOT NULL,
+  `gender` tinyint(4) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `name`, `email`, `phone`, `address`, `password`, `gender`, `created_at`) VALUES
+(1, 'admin', 'arsal@hostcry.com', '1316532165', '546as4d3sa1d6sa4', '$2y$10$2k9pvU0qNySkCVjDvHXmUeEQTHcLEOI0o2PCC8.oATofkTz6OcD4C', 0, '2022-06-07 21:51:28'),
+(2, 'naveed', 'soraha@hai.com', '32432', 'sadsadsad', '$2y$10$CwEDUZSBEvEhJ20Ka5qpHOTBcSos0EgyrkVzwUtzhQ/Viqx0DGCAG', 0, '2022-06-07 22:10:25'),
+(3, 'khizer', 'khizer@adaywala.com', '32432', 'sadsadsad', '$2y$10$ZGCrg3rBQOCWpg56ruDaWeLBAMmpBrc2qvmFHhWWtpRlx6BobE2ye', 0, '2022-06-07 22:11:15');
 
 -- --------------------------------------------------------
 
@@ -213,7 +222,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
