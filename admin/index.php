@@ -3,6 +3,15 @@
     $sql = $conn->query('SELECT id from products');
     $productRows = mysqli_num_rows($sql);
 
+    $earnings = $conn->query("SELECT total_price FROM orders WHERE status = 'Order Deliverd'");
+    $total_deliverd = mysqli_num_rows($earnings);
+    $total_earnings = 0;
+    while($earning = $earnings->fetch_assoc()){
+        $total_earnings = $total_earnings + $earning['total_price'];
+    }
+
+    $customers = $conn->query("SELECT id FROM customers");
+    $total_customers = mysqli_num_rows($customers);
 ?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -22,8 +31,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                                Earnings</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$<?php echo $total_earnings; ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -61,7 +70,7 @@
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">500</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $total_customers; ?></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -80,8 +89,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Will See Later</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                Total Delivered Orders</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_deliverd; ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>

@@ -1,4 +1,5 @@
 <?php include './includes/header.php' ?>
+
     <!-- ------------featured products---------- -->
     <div class="small-container">
         <div class="row">

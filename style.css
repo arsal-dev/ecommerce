@@ -122,8 +122,9 @@ p {
     border: 1px solid  #fd2e26;
     max-width: 1080px;
     width: 100%;
-    padding-left: 25px;
-    padding-right: 25px;
+    /* padding-left: 25px;
+    padding-right: 25px; */
+    padding: 5px;
 }
 .small-container textarea:focus{
     outline: 1.5px solid #fd2e26;
@@ -494,7 +495,7 @@ form input{
 form textarea{
     width: 100%;
     margin: 10px 0;
-    padding: 0 10px;
+    /* padding: 0 10px; */
     border: 1px solid #ccc;
 }
 form a {

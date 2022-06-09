@@ -1,3 +1,36 @@
+<?php 
+  include './database/db_connect.php';
+  session_start();
+  if(isset($_GET['order'])){
+    if(isset($_COOKIE['cart_products'])){
+      $name = $_SESSION['customer'];
+      $sql = $conn->query("SELECT id from customers WHERE name = '$name'");
+      $user_id = $sql->fetch_assoc()['id'];
+  
+      $cookie_products = $_COOKIE['cart_products'];
+  
+      $price = [];
+      $product_id = [];
+      foreach(json_decode($cookie_products, true) as $product){
+        array_push($price, $product['userQty'] * $product['product_price']);
+        array_push($product_id, $product['id']);
+      }
+      $product_id = implode(',', $product_id);
+      $totalPrice = 35.50;
+      for($i = 0; $i < count($price); $i++){
+        $totalPrice = $totalPrice + $price[$i];
+      }
+      $order = $conn->query("INSERT INTO `orders`(`customer_id`, `products`, `total_price`) VALUES ('$user_id','$product_id','$totalPrice')");
+  
+  
+      setcookie('cart_products', 'delelte_cookie', time() - 3600, '/');
+    }
+  }
+  if(!isset($_SESSION['customer'])){
+    header('Location: ../account.php');
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +51,19 @@
   <link href="./assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="./assets/demo/demo.css" rel="stylesheet" />
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/62a1c7c1b0d10b6f3e7678da/1g53v8k2k';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
 </head>
 
 <body class="">
@@ -46,7 +92,7 @@
             </a>
           </li>
           <li class="">
-            <a href="./index.php">
+            <a href="./my-orders.php">
               <i class="nc-icon nc-cart-simple"></i>
               <p>My Orders</p>
             </a>

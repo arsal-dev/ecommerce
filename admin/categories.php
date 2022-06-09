@@ -127,11 +127,14 @@ $sql = $conn->query("SELECT * FROM product_categories");
 </div>
 <script>
     // remove
-    let remove = document.querySelectorAll('.remove');
-    for(let i = 0; i < remove.length; i++){
-        remove[i].addEventListener('click', function(){
-            document.getElementById('mdl_dlt').setAttribute('href', 'database/delete_category.php?id='+this.id);
-        });
+    removeCategory();
+    function removeCategory(){
+        let remove = document.querySelectorAll('.remove');
+        for(let i = 0; i < remove.length; i++){
+            remove[i].addEventListener('click', function(){
+                document.getElementById('mdl_dlt').setAttribute('href', 'database/delete_category.php?id='+this.id);
+            });
+        }
     }
 
     // edit
@@ -167,7 +170,8 @@ $sql = $conn->query("SELECT * FROM product_categories");
                         document.getElementById(updateId).classList.add('d-none');
                         editData();
                     });
-                    updateData()
+                    updateData();
+                    removeCategory();
                 }
             });
         }

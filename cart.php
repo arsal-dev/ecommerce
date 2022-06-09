@@ -1,4 +1,6 @@
-<?php include './includes/header.php' ?>
+<?php include './includes/header.php';
+    session_start();
+?>
     <!-- ----------------cart items details---------------- -->
     <div class="small-container cart-page">
         <table>
@@ -46,7 +48,11 @@
                 </tr>
             </table>
         </div>
-        <button class="btn">buy now</button>
+        <?php if(isset($_SESSION['customer'])){ ?>
+            <a href="./customer/my-orders.php?order=true" class="btn">buy now</a>
+        <?php } else { ?>
+                <a href="./account.php?order=true" class="btn">buy now</a>
+        <?php } ?>
     </div>    
     <script>
         let subTotal = document.getElementById('subTotal');
@@ -83,11 +89,11 @@
         }
 
         // calculate subtotal
-        let subPrice = 0;
         calculateSubPrice();
         function calculateSubPrice(){
+            let subPrice = 0;
             document.querySelectorAll('.price').forEach((value, key) => {
-                console.log(value.innerHTML);
+                console.log(subPrice);
                 subPrice = subPrice + parseInt(value.innerHTML);
                 subTotal.innerHTML = '$'+subPrice;
                 finalPrice.innerHTML = subPrice + 35.50;

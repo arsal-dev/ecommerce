@@ -80,6 +80,12 @@
                     <span>Categories</span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="orders.php">
+                    <i class="fas fa-sitemap"></i>
+                    <span>Orders</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

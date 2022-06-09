@@ -1,8 +1,9 @@
 <?php include './includes/header.php' ?>
 <?php
-
+    if(isset($_GET['order'])){
+        $error = "Please Login/Signup to continue";
+    }
     include './database/db_connect.php';
-
     if(isset($_POST['register'])){
         $name = $_POST['name'];
         $email = $_POST['email'];
@@ -48,7 +49,12 @@
                 if(!$conn->error){
                     session_start();
                     $_SESSION['customer'] = $name;
-                    header('Location: ./customer');
+                    if($_COOKIE['cart_products']){
+                        header('Location: ./cart.php');
+                    }
+                    else {
+                        header('Location: ./customer');
+                    }
                 }
             }
         }
@@ -74,7 +80,12 @@
                 if(password_verify($userPass, $db_Password['password'])){
                     session_start();
                     $_SESSION['customer'] = $username;
-                    header('Location: ./customer');
+                    if($_COOKIE['cart_products']){
+                        header('Location: ./cart.php');
+                    }
+                    else {
+                        header('Location: ./customer');
+                    }
                 }
                 else {
                     $error = 'Username or Password is Incorrect!';
