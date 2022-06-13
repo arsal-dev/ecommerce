@@ -1,3 +1,18 @@
+<?php
+
+    if(isset($_POST['send'])){
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $subject = $_POST['subject'];
+        $msg = $_POST['message'];
+        $message = "New Mail From Contact Us From, Name: $name, $msg";
+        $headers = 'From admin@zanana.com';
+
+
+        mail($email, $subject, $message, $headers);
+    }
+
+?>
 <?php include './includes/header.php'; ?>
     <div class="header">
         <div class="container">
@@ -17,7 +32,7 @@
     <!-- ----------------cart items details---------------- -->
     <div class="small-container mb-4">
         <h1 class="mt-4">Contact Us.</h1>
-        <form action="#">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <label for="name">Full Name: </label>
             <input type="text" name="name" id="name">
             <label for="email">Email: </label>
@@ -26,7 +41,7 @@
             <input type="subject" name="subject" id="subject">
             <label for="message">Message</label>
             <textarea name="message" id="message" cols="30" rows="10"></textarea>
-            <button type="submit" class="btn">Send</button>
+            <button type="submit" name="send" class="btn">Send</button>
         </form>
     </div>
 <?php include './includes/footer.php' ?>
