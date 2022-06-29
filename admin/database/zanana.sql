@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2022 at 12:25 AM
+-- Generation Time: Jun 29, 2022 at 09:24 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -76,7 +76,9 @@ INSERT INTO `orders` (`id`, `customer_id`, `products`, `total_price`, `status`, 
 (34, 1, '11', '58.5', 'Order Deliverd', '2022-06-09 21:09:29'),
 (35, 1, '13', '635.5', 'Order Deliverd', '2022-06-09 21:25:14'),
 (36, 6, '11', '104.5', 'Order Canceled', '2022-06-09 21:26:57'),
-(37, 6, '12', '2035.5', 'Order Deliverd', '2022-06-09 21:42:54');
+(37, 6, '12', '2035.5', 'Order Deliverd', '2022-06-09 21:42:54'),
+(38, 1, '11,12', '2104.5', 'Order Pending', '2022-06-14 23:43:11'),
+(39, 1, '11', '104.5', 'Order Pending', '2022-06-14 23:44:57');
 
 -- --------------------------------------------------------
 
@@ -125,7 +127,7 @@ CREATE TABLE `product_categories` (
 --
 
 INSERT INTO `product_categories` (`id`, `category_name`, `category_slug`, `created_at`) VALUES
-(9, 'Cream', 'Cream', '2022-05-26 10:51:48'),
+(9, 'Creams', 'Creams', '2022-05-26 10:51:48'),
 (13, 'new category', 'test-category', '2022-05-27 10:41:40'),
 (14, 'chita kary cream', 'cream-chita-kary', '2022-05-27 10:45:36'),
 (15, 'testing cream', 'testing-cream', '2022-05-27 10:45:40'),
@@ -246,7 +248,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `products`
